@@ -14,13 +14,6 @@ pnpm run lint
 # 最初のコミット
 git add .
 git commit -m "🎉 Initial commit: Type Challenges environment
-
-- Set up Dev Container with Node.js 24
-- Configure ESLint (following original type-challenges)
-- Add automation scripts
-- Add progress tracking
-- Set up original-type-challenges as submodule"
-
 git push -u origin main
 ```
 

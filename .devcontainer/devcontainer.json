@@ -1,8 +1,8 @@
 {
-  "name": "TypeScript Type Challenges - Node 24",
+  "name": "TypeScript Type Challenges - Node",
   
-  // Node.js 24のイメージを指定
-  "image": "mcr.microsoft.com/devcontainers/javascript-node:24-bookworm",
+  // 最新ではなくオリジナル環境を考慮した Node.js バージョンのイメージを使用する
+  "image": "mcr.microsoft.com/devcontainers/typescript-node:20",
   
   "features": {
     "ghcr.io/devcontainers/features/git:1": {
@@ -14,77 +14,78 @@
     "ghcr.io/devcontainers/features/common-utils:2": {
       "installZsh": true,
       "installOhMyZsh": true,
-      "upgradePackages": true
+      "upgradePackages": true,
+      "configureZshAsDefaultShell": true
+    },
+    // Node.jsバージョン管理ツール（オプション）
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "20",
+      "nodeGypDependencies": true
     }
   },
   
   "customizations": {
     "vscode": {
-      "extensions": [
-        // ESLint（フォーマッターとしても使用）
-        "dbaeumer.vscode-eslint",
-        
-        // TypeScript開発支援
-        "mattpocock.ts-error-translator",
-        "usernamehw.errorlens",
-        "yoavbls.pretty-ts-errors",
-        
-        // Git管理
-        "mhutchie.git-graph",
-        "eamodio.gitlens",
-        
-        // テスト
-        "vitest.explorer",
-        
-        // ユーティリティ
-        "streetsidesoftware.code-spell-checker",
-        "gruntfuggly.todo-tree",
-        "chakrounanas.turbo-console-log"
-      ],
       "settings": {
-        // TypeScript設定
-        "typescript.updateImportsOnFileMove.enabled": "always",
-        "typescript.tsdk": "node_modules/typescript/lib",
-        "typescript.enablePromptUseWorkspaceTsdk": true,
-        
-        // ESLintをデフォルトフォーマッターに設定
-        "editor.defaultFormatter": "dbaeumer.vscode-eslint",
-        "editor.formatOnSave": true,
-        "editor.codeActionsOnSave": {
-          "source.fixAll.eslint": "explicit"
+        // original-type-challenges/.vscode/settings.json に準拠
+        "i18n-ally.localesPaths": "scripts/locales",
+        "i18n-ally.sourceLanguage": "en",
+        "i18n-ally.sortKeys": true,
+        "github.copilot.enable": {
+          "typescript": false
         },
-        
-        // ESLint設定
+        "search.exclude": {
+          "**/node_modules": true,
+          "**/bower_components": true,
+          "**/*.code-search": true,
+          "pnpm-lock.yaml": true,
+          "**/dist": true
+        },
+        "i18n-ally.keystyle": "flat",
+        "typescript.tsdk": "node_modules/typescript/lib",
+        "prettier.semi": false,
+        "typescript.format.semicolons": "remove",
+        "javascript.format.semicolons": "remove",
+        "eslint.useFlatConfig": true,
+        "prettier.enable": false,
+        "editor.formatOnSave": false,
+        "editor.codeActionsOnSave": {
+          "source.fixAll.eslint": "explicit",
+          "source.organizeImports": "never"
+        },
+        "eslint.rules.customizations": [
+          { "rule": "style/*", "severity": "off" },
+          { "rule": "format/*", "severity": "off" },
+          { "rule": "*-indent", "severity": "off" },
+          { "rule": "*-spacing", "severity": "off" },
+          { "rule": "*-spaces", "severity": "off" },
+          { "rule": "*-order", "severity": "off" },
+          { "rule": "*-dangle", "severity": "off" },
+          { "rule": "*-newline", "severity": "off" },
+          { "rule": "*quotes", "severity": "off" },
+          { "rule": "*semi", "severity": "off" }
+        ],
         "eslint.validate": [
           "javascript",
           "javascriptreact",
           "typescript",
-          "typescriptreact"
-        ],
-        "eslint.format.enable": true,
-        
-        // エディタ設定
-        "editor.fontSize": 14,
-        "editor.fontFamily": "'Cascadia Code', 'Fira Code', monospace",
-        "editor.fontLigatures": true,
-        "editor.bracketPairColorization.enabled": true,
-        "editor.guides.indentation": true,
-        "editor.guides.bracketPairs": true,
-        
-        // ターミナル設定
-        "terminal.integrated.defaultProfile.linux": "zsh",
-        
-        // Git設定
-        "git.autofetch": true,
-        "git.confirmSync": false
+          "typescriptreact",
+          "vue",
+          "html",
+          "markdown",
+          "json",
+          "jsonc",
+          "yaml",
+          "toml"
+        ]
       }
     }
   },
   
-  // ホストのGit認証情報をコンテナに引き継ぐ
+  // SSH設定のマウント（macOS固有設定を考慮）
   "mounts": [
-    "source=${localEnv:HOME}${localEnv:USERPROFILE}/.ssh,target=/home/node/.ssh,type=bind,consistency=cached",
-    "source=${localEnv:HOME}${localEnv:USERPROFILE}/.gitconfig,target=/home/node/.gitconfig,type=bind,consistency=cached"
+    "source=${localEnv:HOME}${localEnv:USERPROFILE}/.ssh,target=/home/node/.ssh,type=bind,readonly",
+    "source=${localEnv:HOME}${localEnv:USERPROFILE}/.gitconfig,target=/home/node/.gitconfig-host,type=bind,readonly"
   ],
   
   "postCreateCommand": "bash .devcontainer/post-create.sh",

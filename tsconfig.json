@@ -1,0 +1,48 @@
+{
+  "compilerOptions": {
+    "target": "ES2023",
+    "lib": ["ES2023"],
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "allowJs": false,
+    "noEmit": true,
+    
+    // 型チャレンジ用の厳格な設定
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
+    "strictPropertyInitialization": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
+    
+    // パス設定
+    "baseUrl": ".",
+    "paths": {
+      "@challenges/*": ["original-type-challenges/questions/*"],
+      "@solutions/*": ["solutions/*"],
+      "@utils/*": ["utils/*"],
+      "@type-challenges/utils": ["original-type-challenges/utils"]
+    }
+  },
+  "include": [
+    "solutions/**/*.ts",
+    "utils/**/*.ts",
+    "scripts/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "original-type-challenges/node_modules",
+    "dist"
+  ]
+}

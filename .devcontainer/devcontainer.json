@@ -1,0 +1,101 @@
+{
+  "name": "TypeScript Type Challenges - Node 24",
+  
+  // Node.js 24のイメージを指定
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:24-bookworm",
+  
+  "features": {
+    "ghcr.io/devcontainers/features/git:1": {
+      "version": "latest"
+    },
+    "ghcr.io/devcontainers/features/github-cli:1": {
+      "version": "latest"
+    },
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "installZsh": true,
+      "installOhMyZsh": true,
+      "upgradePackages": true
+    }
+  },
+  
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        // ESLint（フォーマッターとしても使用）
+        "dbaeumer.vscode-eslint",
+        
+        // TypeScript開発支援
+        "mattpocock.ts-error-translator",
+        "usernamehw.errorlens",
+        "yoavbls.pretty-ts-errors",
+        
+        // Git管理
+        "mhutchie.git-graph",
+        "eamodio.gitlens",
+        
+        // テスト
+        "vitest.explorer",
+        
+        // ユーティリティ
+        "streetsidesoftware.code-spell-checker",
+        "gruntfuggly.todo-tree",
+        "chakrounanas.turbo-console-log"
+      ],
+      "settings": {
+        // TypeScript設定
+        "typescript.updateImportsOnFileMove.enabled": "always",
+        "typescript.tsdk": "node_modules/typescript/lib",
+        "typescript.enablePromptUseWorkspaceTsdk": true,
+        
+        // ESLintをデフォルトフォーマッターに設定
+        "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+          "source.fixAll.eslint": "explicit"
+        },
+        
+        // ESLint設定
+        "eslint.validate": [
+          "javascript",
+          "javascriptreact",
+          "typescript",
+          "typescriptreact"
+        ],
+        "eslint.format.enable": true,
+        
+        // エディタ設定
+        "editor.fontSize": 14,
+        "editor.fontFamily": "'Cascadia Code', 'Fira Code', monospace",
+        "editor.fontLigatures": true,
+        "editor.bracketPairColorization.enabled": true,
+        "editor.guides.indentation": true,
+        "editor.guides.bracketPairs": true,
+        
+        // ターミナル設定
+        "terminal.integrated.defaultProfile.linux": "zsh",
+        
+        // Git設定
+        "git.autofetch": true,
+        "git.confirmSync": false
+      }
+    }
+  },
+  
+  // ホストのGit認証情報をコンテナに引き継ぐ
+  "mounts": [
+    "source=${localEnv:HOME}${localEnv:USERPROFILE}/.ssh,target=/home/node/.ssh,type=bind,consistency=cached",
+    "source=${localEnv:HOME}${localEnv:USERPROFILE}/.gitconfig,target=/home/node/.gitconfig,type=bind,consistency=cached"
+  ],
+  
+  "postCreateCommand": "bash .devcontainer/post-create.sh",
+  
+  "remoteEnv": {
+    "GIT_EDITOR": "code --wait"
+  },
+  
+  "remoteUser": "node",
+  
+  // IDE用の追加設定
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
+  "workspaceFolder": "/workspace"
+}

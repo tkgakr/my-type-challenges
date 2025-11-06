@@ -1,5 +1,5 @@
 {
-  "name": "TypeScript Type Challenges - Node",
+  "name": "Type Challenges - TypeScript",
   
   // 最新ではなくオリジナル環境を考慮した Node.js バージョンのイメージを使用する
   "image": "mcr.microsoft.com/devcontainers/typescript-node:20",
@@ -10,17 +10,6 @@
     },
     "ghcr.io/devcontainers/features/github-cli:1": {
       "version": "latest"
-    },
-    "ghcr.io/devcontainers/features/common-utils:2": {
-      "installZsh": true,
-      "installOhMyZsh": true,
-      "upgradePackages": true,
-      "configureZshAsDefaultShell": true
-    },
-    // Node.jsバージョン管理ツール（オプション）
-    "ghcr.io/devcontainers/features/node:1": {
-      "version": "20",
-      "nodeGypDependencies": true
     }
   },
   
@@ -28,9 +17,6 @@
     "vscode": {
       "settings": {
         // original-type-challenges/.vscode/settings.json に準拠
-        "i18n-ally.localesPaths": "scripts/locales",
-        "i18n-ally.sourceLanguage": "en",
-        "i18n-ally.sortKeys": true,
         "github.copilot.enable": {
           "typescript": false
         },
@@ -41,7 +27,6 @@
           "pnpm-lock.yaml": true,
           "**/dist": true
         },
-        "i18n-ally.keystyle": "flat",
         "typescript.tsdk": "node_modules/typescript/lib",
         "prettier.semi": false,
         "typescript.format.semicolons": "remove",
@@ -84,8 +69,8 @@
   
   // SSH設定のマウント（macOS固有設定を考慮）
   "mounts": [
-    "source=${localEnv:HOME}${localEnv:USERPROFILE}/.ssh,target=/home/node/.ssh,type=bind,readonly",
-    "source=${localEnv:HOME}${localEnv:USERPROFILE}/.gitconfig,target=/home/node/.gitconfig-host,type=bind,readonly"
+    "source=${localEnv:HOME}/.ssh,target=/home/node/.ssh,type=bind,readonly",
+    "source=${localEnv:HOME}/.gitconfig,target=/home/node/.gitconfig-host,type=bind,readonly"
   ],
   
   "postCreateCommand": "bash .devcontainer/post-create.sh",
@@ -96,7 +81,6 @@
   
   "remoteUser": "node",
   
-  // IDE用の追加設定
-  "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
-  "workspaceFolder": "/workspace"
+  // リモート接続終了時にコンテナを自動削除する設定
+  "shutdownAction": "stopContainer"
 }

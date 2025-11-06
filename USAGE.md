@@ -20,7 +20,7 @@ git push -u origin main
 # 日々の学習フロー
 ```bash
 # 1. 最新のチャレンジを取得
-npm run sync-challenges
+npm run sync-original
 
 # 2. 日次ログを開始
 npm run daily

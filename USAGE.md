@@ -22,23 +22,20 @@ git push -u origin main
 # 1. 最新のチャレンジを取得
 npm run sync-original
 
-# 2. 日次ログを開始
-npm run daily
-
-# 3. チャレンジを開始
+# 2. チャレンジを開始
 npm run solve 4 easy
 
-# 4. ソリューションを編集（IDE上で）
+# 3. ソリューションを編集（IDE上で）
 
-# 5. ESLintでフォーマット
+# 4. ESLintでフォーマット
 npm run format
 
-# 6. テスト実行
+# 5. テスト実行
 npm test
 
-# 7. 進捗を更新
+# 6. 進捗を更新
 npm run progress
 
-# 8. GitHubにプッシュ
+# 7. GitHubにプッシュ
 git push origin main
 ```

@@ -1,18 +1,11 @@
 {
-  "name": "Type Challenges - TypeScript",
+  "name": "Type Challenges",
   
   // 最新ではなくオリジナル環境を考慮した Node.js バージョンのイメージを使用する
-  "image": "mcr.microsoft.com/devcontainers/typescript-node:20",
-  
-  "features": {
-    "ghcr.io/devcontainers/features/git:1": {
-      "version": "latest"
-    },
-    "ghcr.io/devcontainers/features/github-cli:1": {
-      "version": "latest"
-    }
-  },
-  
+  "image": "mcr.microsoft.com/devcontainers/typescript-node:1-20-bookworm",
+
+  "features": {},
+
   "customizations": {
     "vscode": {
       "settings": {
@@ -63,24 +56,17 @@
           "yaml",
           "toml"
         ]
-      }
+      },
+      "extensions": [
+        "streetsidesoftware.code-spell-checker"
+      ]
     }
   },
   
-  // SSH設定のマウント（macOS固有設定を考慮）
-  "mounts": [
-    "source=${localEnv:HOME}/.ssh,target=/home/node/.ssh,type=bind,readonly",
-    "source=${localEnv:HOME}/.gitconfig,target=/home/node/.gitconfig-host,type=bind,readonly"
-  ],
-  
   "postCreateCommand": "bash .devcontainer/post-create.sh",
-  
-  "remoteEnv": {
-    "GIT_EDITOR": "code --wait"
-  },
-  
-  "remoteUser": "node",
-  
-  // リモート接続終了時にコンテナを自動削除する設定
-  "shutdownAction": "stopContainer"
+
+  // リモート接続終了時にコンテナを自動削除
+  "runArgs": ["--rm"],
+
+  "remoteUser": "node"
 }

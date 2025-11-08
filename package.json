@@ -11,9 +11,7 @@
     "lint-fix": "eslint . --fix",
     "type-check": "tsc --noEmit",
     "solve": "bash scripts/solve.sh",
-    "daily": "bash scripts/daily.sh",
     "progress": "bash scripts/progress.sh",
-    "sync-original": "git submodule update --remote --merge",
     "check-updates": "pnpm outdated",
     "update-deps": "pnpm update --interactive"
   },

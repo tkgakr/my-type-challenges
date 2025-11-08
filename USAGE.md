@@ -1,41 +1,22 @@
-# 初回起動とコミット
+# 学習環境の起動
 ```bash
-# IDEでプロジェクトを開く
+# VSCodeでプロジェクトを開く
 cd my-type-challenges
-code .  # IDEによって `cursor .` や `windsurf .` に読み替え
+code .
 
 # Dev Containerを起動
 # Cmd/Ctrl + Shift + P → "Dev Containers: Reopen in Container"
 
-# Dev Container内で初期化
-pnpm install
-pnpm run lint
-
-# 最初のコミット
-git add .
-git commit -m "🎉 Initial commit: Type Challenges environment
-git push -u origin main
+# 起動時に最新の original-type-challenges を取得します
 ```
 
-# 日々の学習フロー
+# 学習フロー
+1. チャレンジを開始
 ```bash
-# 1. 最新のチャレンジを取得
-npm run sync-original
-
-# 2. チャレンジを開始
 npm run solve 4 easy
-
-# 3. ソリューションを編集（IDE上で）
-
-# 4. ESLintでフォーマット
-npm run format
-
-# 5. テスト実行
-npm test
-
-# 6. 進捗を更新
+```
+2. ソリューションを編集（IDE上で）
+3. 進捗を更新
+```bash
 npm run progress
-
-# 7. GitHubにプッシュ
-git push origin main
 ```

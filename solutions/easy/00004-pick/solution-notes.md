@@ -46,7 +46,6 @@
 - `keyof` 演算子を使って、型のキーを取得することができる。
 [TypeScript: Documentation - TypeScript 2.1](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-2-1.html#keyof-and-lookup-types)
   - `keyof T` は型 `T` のすべてのキーをユニオン型として返す。
-- 
 
 ### つまずいたポイント
 

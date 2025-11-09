@@ -9,8 +9,8 @@ NC='\033[0m' # No Color
 
 # 使用方法を表示
 show_usage() {
-    echo "使用方法: npm run solve [番号] [難易度]"
-    echo "例: npm run solve 4 easy"
+    echo "使用方法: solve.sh [番号] [難易度]"
+    echo "例: sh scripts/solve.sh 4 easy"
     echo ""
     echo "難易度: easy | medium | hard | extreme"
 }
@@ -22,6 +22,7 @@ if [ $# -lt 2 ]; then
 fi
 
 CHALLENGE_NUM=$1
+CHALLENGE_NUM=$(printf "%05d" "$CHALLENGE_NUM")
 DIFFICULTY=$2
 DATE=$(date +%Y-%m-%d)
 TIME=$(date +%H:%M:%S)
@@ -43,68 +44,46 @@ echo -e "${GREEN}✅ 発見: ${CHALLENGE_NAME}${NC}"
 # ソリューションディレクトリを作成
 SOLUTION_DIR="solutions/${DIFFICULTY}/${CHALLENGE_NUM}-${CHALLENGE_NAME}"
 mkdir -p "$SOLUTION_DIR"
+# 問題をコピー
+if [ -f "${CHALLENGE_DIR}/README.ja.md" ]; then
+    cp "${CHALLENGE_DIR}/README.ja.md" "${SOLUTION_DIR}/question.md"
+else
+    cp "${CHALLENGE_DIR}/README.md" "${SOLUTION_DIR}/question.md"
+fi
 
-# ソリューションファイルを作成（ESLintフォーマット準拠）
+# 解答の雛形を作成
 cat > "${SOLUTION_DIR}/solution.ts" << EOF
 /*
- * Challenge #${CHALLENGE_NUM} - ${CHALLENGE_NAME}
+ * $(printf "%d" "$CHALLENGE_NUM") - ${CHALLENGE_NAME}
  * Difficulty: ${DIFFICULTY}
- * Date: ${DATE}
  */
 
-import type { Equal, Expect } from '@type-challenges/utils'
-
 /* _____________ Your Code Here _____________ */
+EOF
 
-type MyType = any // TODO: implement
+if [ -f "${CHALLENGE_DIR}/template.ts" ]; then
+    cat "${CHALLENGE_DIR}/template.ts" >> "${SOLUTION_DIR}/solution.ts"
+else
+    echo "// template.ts が見つかりませんでした。" >> "${SOLUTION_DIR}/solution.ts"
+fi
+
+cat >> "${SOLUTION_DIR}/solution.ts" << EOF
 
 /* _____________ Test Cases _____________ */
-
-type cases = [
-  // TODO: Add test cases from original challenge
-]
-
-export type { MyType }
 EOF
 
-# テストファイルを作成
 if [ -f "${CHALLENGE_DIR}/test-cases.ts" ]; then
-    # オリジナルのテストケースを参照用にコピー
-    cp "${CHALLENGE_DIR}/test-cases.ts" "${SOLUTION_DIR}/original-test-cases.ts"
+    cat "${CHALLENGE_DIR}/test-cases.ts" >> "${SOLUTION_DIR}/solution.ts"
+else
+    echo "// test-cases.ts が見つかりませんでした。" >> "${SOLUTION_DIR}/solution.ts"
 fi
 
-# Vitestテストファイルを作成
-cat > "${SOLUTION_DIR}/solution.test.ts" << EOF
-import { describe, expect, it } from 'vitest'
-import type { Equal, Expect } from '@type-challenges/utils'
-
-describe('Challenge #${CHALLENGE_NUM}: ${CHALLENGE_NAME}', () => {
-  it('should compile without errors', () => {
-    // TypeScriptコンパイルチェック
-    expect(true).toBe(true)
-  })
-
-  it('type checks', () => {
-    // ここに型テストを追加
-    type Test = true
-    const test: Expect<Equal<Test, true>> = true
-    expect(test).toBe(true)
-  })
-})
-EOF
-
-# READMEファイルがあればコピー
-if [ -f "${CHALLENGE_DIR}/README.md" ]; then
-    cp "${CHALLENGE_DIR}/README.md" "${SOLUTION_DIR}/challenge.md"
-fi
-
-# ソリューション管理ファイルを作成
-cat > "${SOLUTION_DIR}/README.md" << EOF
-# Challenge #${CHALLENGE_NUM}: ${CHALLENGE_NAME}
+# 解答メモを作成
+cat > "${SOLUTION_DIR}/solution-notes.md" << EOF
+# Challenge #$(printf "%d" "$CHALLENGE_NUM") - ${CHALLENGE_NAME}
 
 **難易度**: ${DIFFICULTY}  
-**開始日時**: ${DATE} ${TIME}  
-**状態**: 🔄 作業中
+**実施日**: ${DATE}  
 
 ## 問題
 
@@ -146,17 +125,7 @@ cat > "${SOLUTION_DIR}/README.md" << EOF
 *Generated at ${DATE} ${TIME}*
 EOF
 
-# GitでステージングしてESLintを実行
-cd "$SOLUTION_DIR"
-git add .
-
 # ESLintでフォーマット
-npx eslint solution.ts --fix 2>/dev/null || true
+#npx eslint solution.ts --fix 2>/dev/null || true
 
 echo -e "${GREEN}📁 ファイル作成完了: ${SOLUTION_DIR}${NC}"
-echo -e "${YELLOW}📝 次のステップ:${NC}"
-echo "  1. cd ${SOLUTION_DIR}"
-echo "  2. solution.ts を編集"
-echo "  3. npm run lint でコードフォーマット"
-echo "  4. npm test で型チェック"
-echo "  5. npm run progress で進捗更新"

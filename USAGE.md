@@ -13,10 +13,7 @@ code .
 # 学習フロー
 1. チャレンジを開始
 ```bash
-npm run solve 4 easy
+sh scripts/solve.sh 4 easy
 ```
 2. ソリューションを編集（IDE上で）
-3. 進捗を更新
-```bash
-npm run progress
-```
+3. Gitで進捗を更新

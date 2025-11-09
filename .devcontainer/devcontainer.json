@@ -68,5 +68,9 @@
   // リモート接続終了時にコンテナを自動削除
   "runArgs": ["--rm"],
 
+  "containerEnv": {
+    "TZ": "Asia/Tokyo"
+  },
+
   "remoteUser": "node"
 }

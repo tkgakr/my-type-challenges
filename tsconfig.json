@@ -37,12 +37,11 @@
   },
   "include": [
     "solutions/**/*.ts",
-    "utils/**/*.ts",
-    "scripts/**/*.ts"
+    "utils/**/*.ts"
   ],
   "exclude": [
     "node_modules",
-    "original-type-challenges/node_modules",
+    "original-type-challenges",
     "dist"
   ]
 }

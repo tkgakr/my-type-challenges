@@ -31,13 +31,11 @@
     "paths": {
       "@challenges/*": ["original-type-challenges/questions/*"],
       "@solutions/*": ["solutions/*"],
-      "@utils/*": ["utils/*"],
       "@type-challenges/utils": ["original-type-challenges/utils"]
     }
   },
   "include": [
-    "solutions/**/*.ts",
-    "utils/**/*.ts"
+    "solutions/**/*.ts"
   ],
   "exclude": [
     "node_modules",

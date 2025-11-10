@@ -10,34 +10,45 @@
 ## 解法
 
 ### アプローチ
-<!-- ここに解法のアプローチを記述 -->
+
+- #4 Pick でも使用した Mapped Types を使用し、すべてのプロパティを展開
+- 各プロパティに readonly をつける
 
 ### 実装のポイント
-<!-- 重要な実装ポイントを記述 -->
+
+- Mapped Types で readonly をつける
 
 ## 使用した型機能
 
-- [ ] Generics
+- [x] Generics
 - [ ] Conditional Types (`T extends U ? X : Y`)
 - [ ] Template Literal Types
-- [ ] Mapped Types (`{ [K in keyof T]: ... }`)
+- [x] Mapped Types (`{ [K in keyof T]: ... }`)
 - [ ] Type Inference (`infer`)
 - [ ] Recursive Types
 - [ ] Utility Types
-- [ ] Index Access Types
+- [x] Index Access Types
 - [ ] Union Types
 - [ ] Intersection Types
 
 ## 学習メモ
 
 ### 新しく学んだこと
-<!-- 新しい発見や学びを記述 -->
+
+- ユーティリティ型の `Readonly<T>` → イミュータブルなオブジェクト定義で常用したい。  
+[TypeScript: Documentation - Utility Types](https://www.typescriptlang.org/docs/handbook/utility-types.html#readonlytype)
+- Mapped Types に readonly をつけることが可能なこと
 
 ### つまずいたポイント
-<!-- 難しかった部分とその解決方法 -->
+
+特になかったが、実施前に `Readonly<T>` をホバーした特に答えが先に見えてしまった。
 
 ### 参考リンク
-<!-- 参考にした資料のリンク -->
+
+[解法 Readonly](https://ghaiklor.github.io/type-challenges-solutions/ja/easy-readonly.html)  
+[Readonly<T> | TypeScript入門『サバイバルTypeScript』](https://typescriptbook.jp/reference/type-reuse/utility-types/readonly)  
+[TypeScript: Documentation - Mapped Types](https://www.typescriptlang.org/docs/handbook/2/mapped-types.html)  
+[Mapped Types | TypeScript入門『サバイバルTypeScript』](https://typescriptbook.jp/reference/type-reuse/mapped-types)
 
 ---
 *Generated at 2025-11-10 22:11:03*

@@ -4,7 +4,9 @@
  */
 
 /* _____________ Your Code Here _____________ */
-type TupleToObject<T extends readonly any[]> = any
+type TupleToObject<T extends readonly PropertyKey[]> = {
+  [K in T[number]]: K;
+};
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'
@@ -25,3 +27,8 @@ type cases = [
 
 // @ts-expect-error
 type error = TupleToObject<[[1, 2], {}]>
+
+// 問題の例
+const tuple1 = ['tesla', 'model 3', 'model X', 'model Y'] as const
+
+type result = TupleToObject<typeof tuple1> // expected { 'tesla': 'tesla', 'model 3': 'model 3', 'model X': 'model X', 'model Y': 'model Y'}

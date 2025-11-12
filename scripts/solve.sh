@@ -22,14 +22,14 @@ if [ $# -lt 2 ]; then
 fi
 
 CHALLENGE_NUM=$1
-CHALLENGE_NUM=$(printf "%05d" "$CHALLENGE_NUM")
+CHALLENGE_NUM_PADDED=$(printf "%05d" "$CHALLENGE_NUM")
 DIFFICULTY=$2
 DATE=$(date +%Y-%m-%d)
 TIME=$(date +%H:%M:%S)
 
 # チャレンジを検索（original-type-challengesディレクトリから）
-echo -e "${BLUE}🔍 チャレンジ #${CHALLENGE_NUM} を検索中...${NC}"
-CHALLENGE_DIR=$(find original-type-challenges/questions -type d -name "*${CHALLENGE_NUM}-${DIFFICULTY}*" | head -1)
+echo -e "${BLUE}🔍 チャレンジ #${CHALLENGE_NUM_PADDED} を検索中...${NC}"
+CHALLENGE_DIR=$(find original-type-challenges/questions -type d -name "*${CHALLENGE_NUM_PADDED}-${DIFFICULTY}*" | head -1)
 
 if [ -z "$CHALLENGE_DIR" ]; then
     echo -e "${RED}❌ チャレンジが見つかりません${NC}"
@@ -42,7 +42,7 @@ CHALLENGE_NAME=$(basename "$CHALLENGE_DIR" | sed "s/^[0-9]*-${DIFFICULTY}-//")
 echo -e "${GREEN}✅ 発見: ${CHALLENGE_NAME}${NC}"
 
 # ソリューションディレクトリを作成
-SOLUTION_DIR="solutions/${DIFFICULTY}/${CHALLENGE_NUM}-${CHALLENGE_NAME}"
+SOLUTION_DIR="solutions/${DIFFICULTY}/${CHALLENGE_NUM_PADDED}-${CHALLENGE_NAME}"
 mkdir -p "$SOLUTION_DIR"
 # 問題をコピー
 if [ -f "${CHALLENGE_DIR}/README.ja.md" ]; then
@@ -54,7 +54,7 @@ fi
 # 解答の雛形を作成
 cat > "${SOLUTION_DIR}/solution.ts" << EOF
 /*
- * $(printf "%d" "$CHALLENGE_NUM") - ${CHALLENGE_NAME}
+ * ${CHALLENGE_NUM} - ${CHALLENGE_NAME}
  * Difficulty: ${DIFFICULTY}
  */
 
@@ -80,14 +80,14 @@ fi
 
 # 解答メモを作成
 cat > "${SOLUTION_DIR}/solution-notes.md" << EOF
-# Challenge #$(printf "%d" "$CHALLENGE_NUM") - ${CHALLENGE_NAME}
+# Challenge #${CHALLENGE_NUM} - ${CHALLENGE_NAME}
 
 **難易度**: ${DIFFICULTY}  
 **実施日**: ${DATE}  
 
 ## 問題
 
-[オリジナルの問題](https://github.com/type-challenges/type-challenges/tree/main/questions/${CHALLENGE_NUM}-${DIFFICULTY}-${CHALLENGE_NAME})
+[オリジナルの問題](https://github.com/type-challenges/type-challenges/tree/main/questions/${CHALLENGE_NUM_PADDED}-${DIFFICULTY}-${CHALLENGE_NAME})
 
 ## 解法
 

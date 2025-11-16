@@ -50,6 +50,5 @@
 
 [リテラル型 (literal type) | TypeScript入門『サバイバルTypeScript』](https://typescriptbook.jp/reference/values-types-variables/literal-types)
 
-
 ---
 *Generated at 2025-11-16 20:17:15*

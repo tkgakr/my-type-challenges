@@ -20,6 +20,13 @@
 // type Includes<T extends readonly any[], U> = U extends T[number] ? true : false
 
 // 双方向に型の厳密一致を判定する型を作成
+// これは同じに見えるオブジェクトの readonly と非 readonly を区別することができない
+// type IsEqual<X, Y> = [X] extends [Y]
+//   ? [Y] extends [X]
+//     ? true
+//     : false
+//   : false
+
 type IsEqual<X, Y> = (<T>() => T extends X ? 1 : 2) extends (<T>() => T extends Y ? 1 : 2)
   ? (<T>() => T extends Y ? 1 : 2) extends (<T>() => T extends X ? 1 : 2)
     ? true

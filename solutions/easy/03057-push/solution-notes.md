@@ -10,14 +10,17 @@
 ## 解法
 
 ### アプローチ
-<!-- ここに解法のアプローチを記述 -->
+
+末尾に要素を追加した新しいタプル型を作るだけなので、既存タプル `T` と要素 `U` をそのままスプレッド構文で結合し、`[...T, U]` を返す。
 
 ### 実装のポイント
-<!-- 重要な実装ポイントを記述 -->
+
+- `T extends unknown[]` でタプル／配列に限定しなければ、スプレッド構文を使用するところでエラーになる。
+- 可変長タプル（variadic tuple）構文 `[..., U]` を使うことでシンプルに末尾追加が表現できる。
 
 ## 使用した型機能
 
-- [ ] Generics
+- [x] Generics
 - [ ] Conditional Types (`T extends U ? X : Y`)
 - [ ] Template Literal Types
 - [ ] Mapped Types (`{ [K in keyof T]: ... }`)
@@ -31,13 +34,16 @@
 ## 学習メモ
 
 ### 新しく学んだこと
-<!-- 新しい発見や学びを記述 -->
+
+特になし。過去実施分の組み合わせで解くことができた。
 
 ### つまずいたポイント
-<!-- 難しかった部分とその解決方法 -->
+
+特になし。
 
 ### 参考リンク
-<!-- 参考にした資料のリンク -->
+
+[TypeScript: Documentation - TypeScript 4.0](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-0.html#variadic-tuple-types)
 
 ---
 *Generated at 2025-11-19 22:01:46*

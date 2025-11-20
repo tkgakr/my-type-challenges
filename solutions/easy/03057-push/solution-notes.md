@@ -43,7 +43,7 @@
 
 ### 参考リンク
 
-[TypeScript: Documentation - TypeScript 4.0](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-0.html#variadic-tuple-types)
+[TypeScript: Documentation - TypeScript 4.0 - Variadic Tuple Types](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-0.html#variadic-tuple-types)
 
 ---
 *Generated at 2025-11-19 22:01:46*

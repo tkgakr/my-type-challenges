@@ -10,14 +10,16 @@
 ## 解法
 
 ### アプローチ
-<!-- ここに解法のアプローチを記述 -->
+
+`Push` の実装を反転させる。`T` の先頭に `U` を差し込むために、スプレッド構文で `[U, ...T]` というタプルを組み立てる。
 
 ### 実装のポイント
-<!-- 重要な実装ポイントを記述 -->
+
+- `Unshift` はジェネリック型エイリアスとして定義し、`T` を `unknown[]` に制約して配列であることを保証。
 
 ## 使用した型機能
 
-- [ ] Generics
+- [x] Generics
 - [ ] Conditional Types (`T extends U ? X : Y`)
 - [ ] Template Literal Types
 - [ ] Mapped Types (`{ [K in keyof T]: ... }`)
@@ -31,13 +33,16 @@
 ## 学習メモ
 
 ### 新しく学んだこと
-<!-- 新しい発見や学びを記述 -->
+
+特になし。
 
 ### つまずいたポイント
-<!-- 難しかった部分とその解決方法 -->
+
+特になし。
 
 ### 参考リンク
-<!-- 参考にした資料のリンク -->
+
+[TypeScript: Documentation - TypeScript 4.0 - Variadic Tuple Types](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-0.html#variadic-tuple-types)
 
 ---
 *Generated at 2025-11-20 21:28:20*

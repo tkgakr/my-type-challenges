@@ -9,27 +9,26 @@ NC='\033[0m' # No Color
 
 # 使用方法を表示
 show_usage() {
-    echo "使用方法: solve.sh [番号] [難易度]"
-    echo "例: sh scripts/solve.sh 4 easy"
+    echo "使用方法: solve.sh [番号]"
+    echo "例: sh scripts/solve.sh 4"
     echo ""
-    echo "難易度: easy | medium | hard | extreme"
+    echo "指定した番号から難易度を自動検出します"
 }
 
 # 引数チェック
-if [ $# -lt 2 ]; then
+if [ $# -lt 1 ]; then
     show_usage
     exit 1
 fi
 
 CHALLENGE_NUM=$1
 CHALLENGE_NUM_PADDED=$(printf "%05d" "$CHALLENGE_NUM")
-DIFFICULTY=$2
 DATE=$(date +%Y-%m-%d)
 TIME=$(date +%H:%M:%S)
 
 # チャレンジを検索（original-type-challengesディレクトリから）
 echo -e "${BLUE}🔍 チャレンジ #${CHALLENGE_NUM_PADDED} を検索中...${NC}"
-CHALLENGE_DIR=$(find original-type-challenges/questions -type d -name "*${CHALLENGE_NUM_PADDED}-${DIFFICULTY}*" | head -1)
+CHALLENGE_DIR=$(find original-type-challenges/questions -type d -name "${CHALLENGE_NUM_PADDED}-*" | head -1)
 
 if [ -z "$CHALLENGE_DIR" ]; then
     echo -e "${RED}❌ チャレンジが見つかりません${NC}"
@@ -37,8 +36,15 @@ if [ -z "$CHALLENGE_DIR" ]; then
     exit 1
 fi
 
-# チャレンジ名を抽出
-CHALLENGE_NAME=$(basename "$CHALLENGE_DIR" | sed "s/^[0-9]*-${DIFFICULTY}-//")
+# チャレンジ情報を抽出
+CHALLENGE_BASENAME=$(basename "$CHALLENGE_DIR")
+DIFFICULTY=$(echo "$CHALLENGE_BASENAME" | cut -d'-' -f2)
+CHALLENGE_NAME=$(echo "$CHALLENGE_BASENAME" | cut -d'-' -f3-)
+
+if [ -z "$DIFFICULTY" ] || [ -z "$CHALLENGE_NAME" ]; then
+    echo -e "${RED}❌ チャレンジ情報の解析に失敗しました${NC}"
+    exit 1
+fi
 echo -e "${GREEN}✅ 発見: ${CHALLENGE_NAME}${NC}"
 
 # ソリューションディレクトリを作成

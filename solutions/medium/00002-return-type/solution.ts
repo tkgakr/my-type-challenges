@@ -4,7 +4,10 @@
  */
 
 /* _____________ Your Code Here _____________ */
-type MyReturnType<T> = any
+// Tが関数型であるかを判定
+// infer を戻り値に適用して型を推測
+// 関数型であれば戻り値の型を、そうでなければ never を返す
+type MyReturnType<T> = T extends (...args: any) => infer R ? R : never
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

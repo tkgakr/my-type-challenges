@@ -4,7 +4,20 @@
  */
 
 /* _____________ Your Code Here _____________ */
-type MyOmit<T, K> = any
+// MyOmit は mapped type を用いてオブジェクト型を再構成する
+// K は T のプロパティキーを表すユニオン型（keyof T）
+type MyOmit<T, K extends keyof T> = {
+  // Pick では [P in K] でプロパティを選択したが、今回は key remapping を使って
+  // K に含まれないプロパティキーのみを残す必要がある
+  // T の各プロパティ P に対して、 K に含まれるプロパティであれば、never を返し、そうでない場合は P を返す
+  // `T[P]` は、T のプロパティ P の型を返す
+  [P in keyof T as P extends K ? never : P]: T[P]
+}
+
+// 組み込みの Omit の実装は以下。
+// `Exclude<keyof T, K>` で、K のプロパティを除外したユニオン型を生成し、
+// それをPick で抽出している
+type Omit<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>;
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

@@ -4,9 +4,15 @@
  */
 
 /* _____________ Your Code Here _____________ */
-type Chainable = {
-  option(key: string, value: any): any
-  get(): any
+// 1️⃣`T` は(& によって)蓄積されたオブジェクトの型
+type Chainable<T = {}> = {
+  // 2️⃣ `option` は Chainable自身を返す
+  // 左辺がプロパティ、右辺は 蓄積されたオブジェクト `T` に新しいプロパティを追加した型 `Chainable`
+  option: <K extends string, V>(key: K extends keyof T ?
+    V extends T[K] ? never : K
+    : K, value: V) => Chainable<Omit<T, K> & Record<K, V>>
+  // 1️⃣蓄積された型 `T` をそのまま帰す
+  get: () => T
 }
 
 /* _____________ Test Cases _____________ */

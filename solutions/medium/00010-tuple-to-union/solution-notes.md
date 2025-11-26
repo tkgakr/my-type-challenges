@@ -44,11 +44,13 @@
 
 ### つまずいたポイント
 
+- `T[number]`がなぜユニオン型になるのかが理解できなかった。
 
 ### 参考リンク
 
 - [TypeScript Handbook - Indexed Access Types](https://www.typescriptlang.org/docs/handbook/2/indexed-access-types.html)
 - [TypeScript Handbook - Conditional Types](https://www.typescriptlang.org/docs/handbook/2/conditional-types.html)
+[タプル型 T において、なぜ T[number] はUnion型になるのかに関する考察](https://zenn.dev/luvmini511/articles/d89b3ad241e544)
 
 ---
 *Generated at 2025-11-25 22:57:05*

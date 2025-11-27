@@ -4,14 +4,17 @@
  */
 
 /* _____________ Your Code Here _____________ */
-// 1️⃣`T` は(& によって)蓄積されたオブジェクトの型
+// `Chainable<T>` はオブジェクトの型 `T` を段階的に積み上げるビルダー
+// - T: これまでに `option` の呼び出しで蓄積されたプロパティを表す型
 type Chainable<T = {}> = {
-  // 2️⃣ `option` は Chainable自身を返す
-  // 左辺がプロパティ、右辺は 蓄積されたオブジェクト `T` に新しいプロパティを追加した型 `Chainable`
-  option: <K extends string, V>(key: K extends keyof T ?
-    V extends T[K] ? never : K
-    : K, value: V) => Chainable<Omit<T, K> & Record<K, V>>
-  // 1️⃣蓄積された型 `T` をそのまま帰す
+  // K: 追加したいプロパティ名。既存プロパティと衝突する場合は never で型エラー
+  // V: 追加したいプロパティの値の型
+  // 返り値: 追加後のプロパティを含む新しい `Chainable`
+  option: <K extends string, V>(
+    key: K extends keyof T ? never : K,
+    value: V
+  ) => Chainable<Omit<T, K> & Record<K, V>>
+  // これまでに蓄積した型 `T` をそのまま返すアクセサ
   get: () => T
 }
 

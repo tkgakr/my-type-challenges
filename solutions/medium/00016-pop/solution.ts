@@ -4,7 +4,9 @@
  */
 
 /* _____________ Your Code Here _____________ */
-type Pop<T extends any[]> = any
+// #15 Last をベースに最後の要素を除いた残りを返す
+type Pop<T extends any[]> = T extends [...infer Rest, infer Last] ? Rest : []
+
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

@@ -31,8 +31,8 @@ if [ "$NODE_VERSION" -lt 20 ]; then
     echo "⚠️  警告: Node.js 20以上を推奨します（現在: v$NODE_VERSION）"
 fi
 
-# submodulesの最新化
-echo "🔄 original-type-challenges の最新化..."
-git submodule update --remote --merge
+# submodulesの同期（親リポジトリに記録されたコミットを使用）
+echo "🔄 original-type-challenges の同期..."
+git submodule update --init --recursive
 
 echo "✅ セットアップ完了！"

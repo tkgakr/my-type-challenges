@@ -9,8 +9,21 @@ code .
 
 # Dev Containerを起動
 # Cmd/Ctrl + Shift + P → "Dev Containers: Reopen in Container"
+```
 
-# 起動時に最新の original-type-challenges を取得します
+## サブモジュールの最新化
+
+original-type-challenges を最新版に更新したい場合は、以下のスクリプトを実行します。
+
+```bash
+sh scripts/update-submodule.sh
+```
+
+実行後、変更を親リポジトリにコミットしてください。
+
+```bash
+git add original-type-challenges
+git commit -m "chore: update original-type-challenges submodule"
 ```
 
 ## 学習フロー

@@ -10,34 +10,45 @@
 ## 解法
 
 ### アプローチ
-<!-- ここに解法のアプローチを記述 -->
+
+テンプレートリテラル型と条件型を組み合わせて、文字列の両端から空白文字を再帰的に取り除く。
+
+1. **Trim（順次処理）**: まず右端のスペースを全て取り除き、次に左端のスペースを取り除く
+2. **Trim2（ユニオン型）**: 左右どちらかにスペースがあれば1文字取り除く条件をユニオン型で表現
 
 ### 実装のポイント
-<!-- 重要な実装ポイントを記述 -->
+
+- `Space` 型で空白文字（スペース、改行、タブ）をユニオン型で定義
+- テンプレートリテラル型 `` `${infer R}${Space}` `` で右端のスペースを検出
+- テンプレートリテラル型 `` `${Space}${infer R}` `` で左端のスペースを検出
+- 別解では `` `${infer R}${Space}` | `${Space}${infer R}` `` のユニオン型で左右どちらかのスペースを一度に検出
 
 ## 使用した型機能
 
-- [ ] Generics
-- [ ] Conditional Types (`T extends U ? X : Y`)
-- [ ] Template Literal Types
+- [x] Generics
+- [x] Conditional Types (`T extends U ? X : Y`)
+- [x] Template Literal Types
 - [ ] Mapped Types (`{ [K in keyof T]: ... }`)
-- [ ] Type Inference (`infer`)
-- [ ] Recursive Types
+- [x] Type Inference (`infer`)
+- [x] Recursive Types
 - [ ] Utility Types
 - [ ] Index Access Types
-- [ ] Union Types
+- [x] Union Types
 - [ ] Intersection Types
 
 ## 学習メモ
 
 ### 新しく学んだこと、再確認したこと
-<!-- 新しい発見や学びを記述 -->
+
+- 特になし、#106 TrimLeft の応用だった。
 
 ### つまずいたポイント
-<!-- 難しかった部分とその解決方法 -->
+
+- はじめ、TrimLeftとTrimRightの両方を用意したが、再帰がうまくいかなかったが、素直にTrimで再帰するとうまくいった。
 
 ### 参考リンク
-<!-- 参考にした資料のリンク -->
+
+[テンプレートリテラル | TypeScript Deep Dive 日本語版](https://typescript-jp.gitbook.io/deep-dive/future-javascript/template-strings)
 
 ---
 *Generated at 2025-12-03 22:29:20*

@@ -4,7 +4,36 @@
  */
 
 /* _____________ Your Code Here _____________ */
-type MyCapitalize<S extends string> = any
+// テンプレートリテラル型とinfer を使った力技
+type MyCapitalize<S extends string> =
+  S extends `a${infer R}` ? `A${R}` :
+  S extends `b${infer R}` ? `B${R}` :
+  S extends `c${infer R}` ? `C${R}` :
+  S extends `d${infer R}` ? `D${R}` :
+  S extends `e${infer R}` ? `E${R}` :
+  S extends `f${infer R}` ? `F${R}` :
+  S extends `g${infer R}` ? `G${R}` :
+  S extends `h${infer R}` ? `H${R}` :
+  S extends `i${infer R}` ? `I${R}` :
+  S extends `j${infer R}` ? `J${R}` :
+  S extends `k${infer R}` ? `K${R}` :
+  S extends `l${infer R}` ? `L${R}` :
+  S extends `m${infer R}` ? `M${R}` :
+  S extends `n${infer R}` ? `N${R}` :
+  S extends `o${infer R}` ? `O${R}` :
+  S extends `p${infer R}` ? `P${R}` :
+  S extends `q${infer R}` ? `Q${R}` :
+  S extends `r${infer R}` ? `R${R}` :
+  S extends `s${infer R}` ? `S${R}` :
+  S extends `t${infer R}` ? `T${R}` :
+  S extends `u${infer R}` ? `U${R}` :
+  S extends `v${infer R}` ? `V${R}` :
+  S extends `w${infer R}` ? `W${R}` :
+  S extends `x${infer R}` ? `X${R}` :
+  S extends `y${infer R}` ? `Y${R}` :
+  S extends `z${infer R}` ? `Z${R}` :
+  S
+
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

@@ -10,18 +10,22 @@
 ## 解法
 
 ### アプローチ
-<!-- ここに解法のアプローチを記述 -->
+
+テンプレートリテラル型と `infer` を使って文字列 `S` を `From` の前後に分割し、`From` を `To` に置換する。
 
 ### 実装のポイント
-<!-- 重要な実装ポイントを記述 -->
+
+- `From` が空文字 `''` の場合は置換せずそのまま `S` を返す
+- `From` の前後を`infer`を使って推論し、マッチすれば置換して返す
+- 別解では `From extends '' ? never : From` をインラインで書くことで、空文字チェックを条件分岐なしで実現
 
 ## 使用した型機能
 
-- [ ] Generics
-- [ ] Conditional Types (`T extends U ? X : Y`)
-- [ ] Template Literal Types
+- [x] Generics
+- [x] Conditional Types (`T extends U ? X : Y`)
+- [x] Template Literal Types
 - [ ] Mapped Types (`{ [K in keyof T]: ... }`)
-- [ ] Type Inference (`infer`)
+- [x] Type Inference (`infer`)
 - [ ] Recursive Types
 - [ ] Utility Types
 - [ ] Index Access Types
@@ -31,10 +35,12 @@
 ## 学習メモ
 
 ### 新しく学んだこと、再確認したこと
-<!-- 新しい発見や学びを記述 -->
+
+- 空文字 `''` はテンプレートリテラル型のパターンマッチで常にマッチしてしまうため、事前に除外が必要
 
 ### つまずいたポイント
-<!-- 難しかった部分とその解決方法 -->
+
+最初、From が空文字の場合の考慮ができておらず、空文字まで置換処理していた
 
 ### 参考リンク
 <!-- 参考にした資料のリンク -->

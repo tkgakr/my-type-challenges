@@ -4,7 +4,14 @@
  */
 
 /* _____________ Your Code Here _____________ */
-type Merge<F, S> = any
+type Merge<F, S> = {
+  // P は F と S の key を合わせたもの
+  [P in keyof F | keyof S]:
+    // S のみ、または F と S に両方もつプロパティは S が優先
+    P extends keyof S ? S[P]:
+    // F のみのプロパティ
+    P extends keyof F ? F[P]: never
+}
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

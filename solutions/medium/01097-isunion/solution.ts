@@ -16,20 +16,32 @@ type IsUnion<T, U = T> =
     ? [U] extends [T]
       // ユニオンでない
       ? false
-      // ユニオンなら各要素がここにいたるので、結果が `true` のユニオン (= true) になる
+      // ユニオンなら各要素がここにいたので、結果が `true` のユニオン (= true) になる
       : true
     // U は元の T なので通常ここには到達しない
     : never
 
-// 解法2
+// 解法2: 二重分配による判定
 type IsUnionImpl<T, C extends T = T> =
+  // T の各要素に対して分配
   (T extends T
+    // ここのTは分配後の各要素で、Cは元のT
+    // つまり、Tの全要素を互いに比較する
     ? C extends T
+      // C の要素が T に代入可能な場合
+      // 例: T=string, C=string|number のとき
+      //   string extends string → true
+      //   number extends string → unknown
       ? true
+      // C の要素が T に代入不可能な場合
       : unknown
+    // Tが裸のneverの場合
     : never
+  // true | unknown は unknown に縮約される
   ) extends true
+    // trueの場合はユニオンでない単一要素
     ? false
+    // ユニオン
     : true
 type IsUnion2<T> = IsUnionImpl<T>
 

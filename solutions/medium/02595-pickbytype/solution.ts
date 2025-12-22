@@ -4,7 +4,10 @@
  */
 
 /* _____________ Your Code Here _____________ */
-type PickByType<T, U> = any
+type PickByType<T, U> = {
+  // 値型が U に代入可能なプロパティだけを抽出する
+  [P in keyof T as T[P] extends U ? P : never] : T[P]
+}
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

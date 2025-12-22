@@ -10,34 +10,37 @@
 ## 解法
 
 ### アプローチ
-<!-- ここに解法のアプローチを記述 -->
+- `keyof T` を走査する mapped type を作り、各プロパティの値型が `U` に代入可能かどうかでキーを残すか捨てるかを判定する。
+- キーのフィルタは key remapping (`as`) を使い、条件に合わないキーは `never` に落として除外する。
 
 ### 実装のポイント
-<!-- 重要な実装ポイントを記述 -->
+- `T[P] extends U ? P : never` でキーを切り替える。
+- mapped type の `as` は「キー名を変える」だけでなく「条件付きで除外する」にも使える点が重要。
 
 ## 使用した型機能
 
-- [ ] Generics
-- [ ] Conditional Types (`T extends U ? X : Y`)
+- [x] Generics
+- [x] Conditional Types (`T extends U ? X : Y`)
 - [ ] Template Literal Types
-- [ ] Mapped Types (`{ [K in keyof T]: ... }`)
+- [x] Mapped Types (`{ [K in keyof T]: ... }`)
 - [ ] Type Inference (`infer`)
 - [ ] Recursive Types
 - [ ] Utility Types
-- [ ] Index Access Types
+- [x] Index Access Types
 - [ ] Union Types
 - [ ] Intersection Types
 
 ## 学習メモ
 
 ### 新しく学んだこと、再確認したこと
-<!-- 新しい発見や学びを記述 -->
+- `as` を使った key remapping は、条件分岐で `never` を返すことでキーのフィルタに使える。
 
 ### つまずいたポイント
-<!-- 難しかった部分とその解決方法 -->
+
+- プロパティをフィルタするための方法として、`as` が使えることを忘れていた。
 
 ### 参考リンク
-<!-- 参考にした資料のリンク -->
+- [TypeScript Handbook - Mapped Types / Key Remapping via `as`](https://www.typescriptlang.org/docs/handbook/2/mapped-types.html#key-remapping-via-as)
 
 ---
 *Generated at 2025-12-22 12:40:30*

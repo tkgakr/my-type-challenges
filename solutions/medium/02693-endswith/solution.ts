@@ -1,0 +1,21 @@
+/*
+ * 2693 - endswith
+ * Difficulty: medium
+ */
+
+/* _____________ Your Code Here _____________ */
+type EndsWith<T extends string, U extends string> =
+  // テンプレートリテラル型による後方一致判定
+  T extends `${string}${U}` ? true : false
+
+/* _____________ Test Cases _____________ */
+import type { Equal, Expect } from '@type-challenges/utils'
+
+type cases = [
+  Expect<Equal<EndsWith<'abc', 'bc'>, true>>,
+  Expect<Equal<EndsWith<'abc', 'abc'>, true>>,
+  Expect<Equal<EndsWith<'abc', 'd'>, false>>,
+  Expect<Equal<EndsWith<'abc', 'ac'>, false>>,
+  Expect<Equal<EndsWith<'abc', ''>, true>>,
+  Expect<Equal<EndsWith<'abc', ' '>, false>>,
+]

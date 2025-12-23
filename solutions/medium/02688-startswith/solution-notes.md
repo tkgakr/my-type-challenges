@@ -10,18 +10,23 @@
 ## 解法
 
 ### アプローチ
-<!-- ここに解法のアプローチを記述 -->
+
+- テンプレートリテラル型を用いて前方一致を判定する。
 
 ### 実装のポイント
-<!-- 重要な実装ポイントを記述 -->
+
+- `T extends ${U}${infer _}` で、`T` が `U` で始まるかを判定
+- `infer _` は残りの部分をキャプチャするが、使用しないためアンダースコアで破棄
+- `U` が空文字列の場合、任意の文字列にマッチするため `true` を返す
+- `T` と `U` が完全一致の場合も、`infer _` が空文字列にマッチするため `true`
 
 ## 使用した型機能
 
-- [ ] Generics
-- [ ] Conditional Types (`T extends U ? X : Y`)
-- [ ] Template Literal Types
+- [x] Generics
+- [x] Conditional Types (`T extends U ? X : Y`)
+- [x] Template Literal Types
 - [ ] Mapped Types (`{ [K in keyof T]: ... }`)
-- [ ] Type Inference (`infer`)
+- [x] Type Inference (`infer`)
 - [ ] Recursive Types
 - [ ] Utility Types
 - [ ] Index Access Types
@@ -31,13 +36,17 @@
 ## 学習メモ
 
 ### 新しく学んだこと、再確認したこと
-<!-- 新しい発見や学びを記述 -->
+
+- テンプレートリテラル型と `infer` を組み合わせることで、文字列の前方一致判定が簡潔に実装できる
+- `infer _` のようにアンダースコアを使うことで、不要な推論結果を明示的に破棄できる
 
 ### つまずいたポイント
-<!-- 難しかった部分とその解決方法 -->
+
+- 特になし
 
 ### 参考リンク
-<!-- 参考にした資料のリンク -->
+
+- [TypeScript Handbook - Template Literal Types](https://www.typescriptlang.org/docs/handbook/2/template-literal-types.html)
 
 ---
 *Generated at 2025-12-23 20:57:14*

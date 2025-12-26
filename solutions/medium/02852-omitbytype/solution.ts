@@ -4,7 +4,10 @@
  */
 
 /* _____________ Your Code Here _____________ */
-type OmitByType<T, U> = any
+type OmitByType<T, U> = {
+  // 値型が U に代入可能なプロパティを除外する
+  [K in keyof T as T[K] extends U ? never : K] : T[K]
+}
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

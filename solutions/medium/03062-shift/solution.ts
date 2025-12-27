@@ -4,7 +4,10 @@
  */
 
 /* _____________ Your Code Here _____________ */
-type Shift<T> = any
+// Tが配列であることを制約し、最初のテストがエラーになるようにする
+type Shift<T extends any[]> =
+  // 最初の要素と残りを推論し、該当しない場合（空配列など）は空配列を返す
+  T extends [infer First, ...infer Rest] ? [...Rest] : []
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

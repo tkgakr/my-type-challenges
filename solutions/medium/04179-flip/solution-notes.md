@@ -10,34 +10,45 @@
 ## 解法
 
 ### アプローチ
-<!-- ここに解法のアプローチを記述 -->
+
+Mapped Types の Key Remapping (`as` 節) を使って、元のオブジェクトの「値」を新しいオブジェクトの「キー」に、「キー」を「値」に入れ替える。
 
 ### 実装のポイント
-<!-- 重要な実装ポイントを記述 -->
+
+1. **型引数の制約**: `T extends Record<string, string | number | boolean>` で値をプロパティキーに変換可能な型に制限
+2. **Key Remapping**: `[K in keyof T as ${T[K]}]` で元の値を新しいキーとして使用
+3. **テンプレートリテラル**: `${T[K]}` により `true`/`false` などの boolean 値も文字列キーに変換
 
 ## 使用した型機能
 
-- [ ] Generics
+- [x] Generics
 - [ ] Conditional Types (`T extends U ? X : Y`)
-- [ ] Template Literal Types
-- [ ] Mapped Types (`{ [K in keyof T]: ... }`)
+- [x] Template Literal Types
+- [x] Mapped Types (`{ [K in keyof T]: ... }`)
 - [ ] Type Inference (`infer`)
 - [ ] Recursive Types
 - [ ] Utility Types
-- [ ] Index Access Types
+- [x] Index Access Types
 - [ ] Union Types
 - [ ] Intersection Types
 
 ## 学習メモ
 
 ### 新しく学んだこと、再確認したこと
-<!-- 新しい発見や学びを記述 -->
+
+- Mapped Types の `as` 節を使った Key Remapping でキーを動的に変更できる
+- テンプレートリテラル `${...}` は boolean や number を文字列に変換するのに便利
 
 ### つまずいたポイント
-<!-- 難しかった部分とその解決方法 -->
+
+- `true`/`false` をキーにする際、そのままだとプロパティキーとして使えない → テンプレートリテラルで文字列化することで解決
 
 ### 参考リンク
-<!-- 参考にした資料のリンク -->
+
+- [Record<Keys, Type> | TypeScript入門『サバイバルTypeScript』](https://typescriptbook.jp/reference/type-reuse/utility-types/record)
+- [TypeScript: Documentation - Utility Types - Record<Keys, Type>](https://www.typescriptlang.org/docs/handbook/utility-types.html#recordkeys-type)
+- [TypeScript: Documentation - Mapped Types - Key Remapping via `as`](https://www.typescriptlang.org/docs/handbook/2/mapped-types.html#key-remapping-via-as)
+- [TypeScript: Documentation - Template Literal Types](https://www.typescriptlang.org/docs/handbook/2/template-literal-types.html)
 
 ---
 *Generated at 2026-01-01 17:16:10*

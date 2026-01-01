@@ -4,7 +4,12 @@
  */
 
 /* _____________ Your Code Here _____________ */
-type Flip<T> = any
+// T の各値を string | number | boolean に制約することで、テンプレートリテラル `${T[K]}` で文字列キーに変換可能にする
+type Flip<T extends Record<string, string | number | boolean>> = {
+  // Tの各プロパティの値を、戻り値のプロパティキーとして使用する。
+  // テンプレートリテラルを使うことで、true/false などの boolean 値も文字列キーとして扱える
+  [K in keyof T as `${T[K]}`]: K
+}
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect, NotEqual } from '@type-challenges/utils'

@@ -45,5 +45,7 @@
 
 ### 参考リンク
 
+- [#531 String to Union](https://github.com/type-challenges/type-challenges/blob/main/questions/00531-medium-string-to-union/README.ja.md)
+
 ---
 *Generated at 2026-01-03 19:38:43*

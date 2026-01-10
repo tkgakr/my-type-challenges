@@ -4,7 +4,15 @@
  */
 
 /* _____________ Your Code Here _____________ */
-type Trunc = any
+type Trunc<T extends number | string> =
+  // テンプレートリテラルで文字列に変換して条件型を適用させる
+  // 小数点の有無をチェック(I: Integer, D: Decimal)
+  `${T}` extends `${infer I}.${infer D}`
+    // 整数部分がない場合、0 を省略することがある
+    ? I extends '' | '-'
+      ? `${I}0`
+      : I
+    : `${T}`
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

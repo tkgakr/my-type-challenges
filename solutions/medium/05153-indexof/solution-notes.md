@@ -10,20 +10,24 @@
 ## 解法
 
 ### アプローチ
-<!-- ここに解法のアプローチを記述 -->
+
+配列 `T` を先頭から走査しつつ、現在のインデックス長を表すタプル `Index` をアキュムレーターとして再帰的に伝搬させる。各ステップで先頭要素と検索対象 `U` を `Equal` で比較し、一致した時点で `Index['length']` を返し、最後まで一致しなければ `-1` を返す方針。
 
 ### 実装のポイント
-<!-- 重要な実装ポイントを記述 -->
+
+1. `IndexOf` にデフォルト型引数で空タプルを渡し、`Index['length']` を数値リテラルとして扱えるようにしている。
+2. `T extends [infer First, ...infer Rest]` で配列分解し、`Equal<First, U>` が `true` なら即座に現在インデックスを返す。
+3. 一致しなかった場合は `Index` にダミー要素を追加して長さを +1 し、残り配列で再帰。走査が尽きれば `-1` を返す。
 
 ## 使用した型機能
 
-- [ ] Generics
-- [ ] Conditional Types (`T extends U ? X : Y`)
+- [x] Generics
+- [x] Conditional Types (`T extends U ? X : Y`)
 - [ ] Template Literal Types
 - [ ] Mapped Types (`{ [K in keyof T]: ... }`)
-- [ ] Type Inference (`infer`)
-- [ ] Recursive Types
-- [ ] Utility Types
+- [x] Type Inference (`infer`)
+- [x] Recursive Types
+- [x] Utility Types
 - [ ] Index Access Types
 - [ ] Union Types
 - [ ] Intersection Types
@@ -34,7 +38,8 @@
 <!-- 新しい発見や学びを記述 -->
 
 ### つまずいたポイント
-<!-- 難しかった部分とその解決方法 -->
+
+- Uと各要素との一致チェックにつまずいたため、@type-challenges/utils の `Equal<T, U>` を使用した
 
 ### 参考リンク
 <!-- 参考にした資料のリンク -->

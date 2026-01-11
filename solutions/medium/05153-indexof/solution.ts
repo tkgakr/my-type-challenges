@@ -4,7 +4,17 @@
  */
 
 /* _____________ Your Code Here _____________ */
-type IndexOf<T, U> = any
+// Index を表すアキュムレータを設置する
+type IndexOf<T extends any[], U, Index extends any[] = []> =
+  T extends [infer First, ...infer Rest]
+    // 左端要素とU の一致チェック
+    ? Equal<First, U> extends true
+      // Indexの長さで 最初の T の要素番号を表す
+      ? Index['length']
+      // Index に要素を加えて再帰処理
+      : IndexOf<Rest, U, [...Index, 1]>
+    // Uが見つからないまま T が空になったら -1 を返す
+    : -1
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

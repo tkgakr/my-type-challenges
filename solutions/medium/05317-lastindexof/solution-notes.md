@@ -10,34 +10,51 @@
 ## 解法
 
 ### アプローチ
-<!-- ここに解法のアプローチを記述 -->
+
+配列の**末尾から**要素を取り出し、`Equal` で厳密比較を行う再帰的アプローチ。
+
+1. `[...infer Rest, infer Last]` で配列の末尾要素を分離
+2. `Equal<Last, U>` で厳密な型比較
+3. 一致すれば `Rest['length']` がそのままインデックス（0-indexed）
+4. 一致しなければ `Rest` で再帰
+5. 配列が空になったら `-1` を返す
 
 ### 実装のポイント
-<!-- 重要な実装ポイントを記述 -->
+
+- **末尾からの分解**: `[...Rest, Last]` パターンで末尾要素を取得
+- **インデックス計算**: `Rest['length']` が末尾要素のインデックスに一致する
+  - 例: `[1, 2, 3]` の末尾 `3` のインデックスは `2` = `[1, 2]['length']`
+- **厳密比較**: `Equal` ユーティリティで `any` や `number` などの特殊な型も正しく比較
 
 ## 使用した型機能
 
-- [ ] Generics
-- [ ] Conditional Types (`T extends U ? X : Y`)
+- [x] Generics
+- [x] Conditional Types (`T extends U ? X : Y`)
 - [ ] Template Literal Types
 - [ ] Mapped Types (`{ [K in keyof T]: ... }`)
-- [ ] Type Inference (`infer`)
-- [ ] Recursive Types
+- [x] Type Inference (`infer`)
+- [x] Recursive Types
 - [ ] Utility Types
-- [ ] Index Access Types
+- [x] Index Access Types
 - [ ] Union Types
 - [ ] Intersection Types
 
 ## 学習メモ
 
 ### 新しく学んだこと、再確認したこと
-<!-- 新しい発見や学びを記述 -->
+
+- `IndexOf` が先頭から探索するのに対し、`LastIndexOf` は末尾から探索
+- `[...Rest, Last]` パターンで末尾要素を取り出せる
+- `Rest['length']` が末尾要素のインデックスになる点が直感的
 
 ### つまずいたポイント
-<!-- 難しかった部分とその解決方法 -->
+
+特になし
 
 ### 参考リンク
-<!-- 参考にした資料のリンク -->
+
+- [Array.prototype.lastIndexOf() - JavaScript | MDN](https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/lastIndexOf)
+- [#5153 IndexOf](https://github.com/type-challenges/type-challenges/blob/main/questions/05153-medium-indexof/README.md)
 
 ---
 *Generated at 2026-01-12 20:00:04*

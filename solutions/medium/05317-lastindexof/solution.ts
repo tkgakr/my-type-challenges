@@ -4,7 +4,12 @@
  */
 
 /* _____________ Your Code Here _____________ */
-type LastIndexOf<T, U> = any
+type LastIndexOf<T extends any[], U> =
+  T extends [...infer Rest, infer Last]
+    ? Equal<Last, U> extends true
+      ? Rest['length']
+      : LastIndexOf<Rest, U>
+    : -1
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

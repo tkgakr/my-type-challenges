@@ -10,31 +10,40 @@
 ## 解法
 
 ### アプローチ
-<!-- ここに解法のアプローチを記述 -->
+
+- 解法1: アキュムレータに結果のユニオンを蓄積しながら L〜H を走査する。
+- 解法2: 0〜H のユニオンから 0〜L のユニオンを除外し、L を加え直す。
+- 解法3: L に到達したら Flag を立てて結果をタプルで収集し、最後にユニオンへ変換する。
 
 ### 実装のポイント
-<!-- 重要な実装ポイントを記述 -->
+
+- 解法1はユニオンをアキュムレータ側でフラットに増やし、入れ子を避ける。
+- 解法2は Exclude によって L が消えるため、最後に L を戻す。
+- 解法3は Flag で収集開始を制御し、`[...R, H][number]` でタプルをユニオン化する。
 
 ## 使用した型機能
 
-- [ ] Generics
-- [ ] Conditional Types (`T extends U ? X : Y`)
+- [x] Generics
+- [x] Conditional Types (`T extends U ? X : Y`)
 - [ ] Template Literal Types
 - [ ] Mapped Types (`{ [K in keyof T]: ... }`)
 - [ ] Type Inference (`infer`)
-- [ ] Recursive Types
+- [x] Recursive Types
 - [ ] Utility Types
-- [ ] Index Access Types
-- [ ] Union Types
+- [x] Index Access Types
+- [x] Union Types
 - [ ] Intersection Types
 
 ## 学習メモ
 
 ### 新しく学んだこと、再確認したこと
-<!-- 新しい発見や学びを記述 -->
+
+- 再帰の深さだけでなく、ユニオンの入れ子が評価コストに影響する。
+- タプルをユニオン化するには `T[number]` が有効。
 
 ### つまずいたポイント
-<!-- 難しかった部分とその解決方法 -->
+
+- 再帰が深くなってしまい、140でも TS2589 エラーになった点
 
 ### 参考リンク
 <!-- 参考にした資料のリンク -->

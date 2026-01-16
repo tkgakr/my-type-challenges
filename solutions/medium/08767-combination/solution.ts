@@ -4,8 +4,32 @@
  */
 
 /* _____________ Your Code Here _____________ */
-type Combination<T extends string[]> = any
-
+// All は、タプルの各要素をユニオンに変換したもの
+type Combination<T extends string[], All = T[number], Items = All> = 
+  // 各要素を分配(ユニオンなのか分配後の要素なのかをわかりやすくするため、infer Item で名称をわける)
+  Items extends infer Item extends string
+    // テンプレートリテラルの中の変数がユニオンになる場合、結果文字列もユニオンになる
+    // 例['A', 'B', 'C'] の場合
+    /* A の分配
+       'A' | `A ${Combination<[], 'B' | 'C'>}`
+     → 'A' | 'A B' | `A B ${Combination<[], 'C'>}` | 'A C' | `A C ${Combination<[], 'B'>}`
+     → 'A' | 'A B' | 'A B C'                       | 'A C' | 'A C B'
+    */
+    /* B の分配
+       'B' | `B ${Combination<[], 'A' | 'C'>}`
+     → 'B' | 'B A' | `B A ${Combination<[], 'C'>}` | 'B C' | `B C ${Combination<[], 'A'>}`
+     → 'B' | 'B A' | 'B A C'                       | 'B C' | 'B C A'
+    */
+    /* C の分配
+       'C' | `C ${Combination<[], 'A' | 'B'>}`
+     → 'C' | 'C A' | `C A ${Combination<[], 'B'>}` | 'C B' | `C B ${Combination<[], 'A'>}`
+     → 'C' | 'C A' | 'C A B'                       | 'C B' | 'C B A'
+    */
+    // 再帰処理においては ユニオンを使用するため、T はもう使わない
+    ? Item | `${Item} ${Combination<[], Exclude<All, Item>>}`
+    // 要素がなくなったら再帰終了
+    // `${Item} ${never}` は never になり、文字列を返さない
+    : never
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'
 
@@ -27,4 +51,7 @@ type cases = [
   ,
   Expect<Equal<Combination<['one', 'two']>, 'one' | 'two' |
   'one two' | 'two one'>>,
+  // 追加テスト
+  Expect<Equal<Combination<['one']>, 'one'>>,
+  Expect<Equal<Combination<[]>, never>>,
 ]

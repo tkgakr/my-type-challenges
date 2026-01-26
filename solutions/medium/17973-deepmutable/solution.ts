@@ -4,7 +4,20 @@
  */
 
 /* _____________ Your Code Here _____________ */
-type DeepMutable = any
+type DeepMutable<T extends object> = {
+  // `-` を付けて mapped type modifier を取り除く
+  -readonly[K in keyof T]:
+    // 関数型も object なので、先にチェック
+    T[K] extends Function
+      ? T[K]
+      // object かチェック
+      : T[K] extends object
+        // オブジェクトなら再帰
+        // (配列もオブジェクトだが、正しく処理される)
+        ? DeepMutable<T[K]>
+        // オブジェクトでなければ値を返す
+        : T[K]
+}
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

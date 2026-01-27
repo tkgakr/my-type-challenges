@@ -10,19 +10,23 @@
 ## 解法
 
 ### アプローチ
-<!-- ここに解法のアプローチを記述 -->
+
+タプル `T` を先頭要素と残りに分解し、先頭が `U` と等しいかを順番に検証する。`Equal<First, U>` が `true` なら残りへ再帰し、1つでも `false` が出たら `false` を返す。タプルが空になったら、全要素が一致したとみなして `true` を返す。
 
 ### 実装のポイント
-<!-- 重要な実装ポイントを記述 -->
+
+- `T extends [infer First, ...infer Rest]` でタプルを分解して再帰する。
+- 判定は `Equal` を使い、型の完全一致をチェックする（`extends` だけだと `any`/`unknown` などで崩れるため）。
+- ベースケースは `T` が空のときに `true` を返す。
 
 ## 使用した型機能
 
-- [ ] Generics
-- [ ] Conditional Types (`T extends U ? X : Y`)
+- [x] Generics
+- [x] Conditional Types (`T extends U ? X : Y`)
 - [ ] Template Literal Types
 - [ ] Mapped Types (`{ [K in keyof T]: ... }`)
-- [ ] Type Inference (`infer`)
-- [ ] Recursive Types
+- [x] Type Inference (`infer`)
+- [x] Recursive Types
 - [ ] Utility Types
 - [ ] Index Access Types
 - [ ] Union Types
@@ -31,13 +35,16 @@
 ## 学習メモ
 
 ### 新しく学んだこと、再確認したこと
-<!-- 新しい発見や学びを記述 -->
+
+`extends` だけの比較ではなく、`Equal` を使うことで `any`/`unknown` を含むケースの厳密比較ができる点を再確認した。
 
 ### つまずいたポイント
-<!-- 難しかった部分とその解決方法 -->
+
+特になし
 
 ### 参考リンク
-<!-- 参考にした資料のリンク -->
+
+特になし
 
 ---
 *Generated at 2026-01-27 21:44:12*

@@ -4,7 +4,12 @@
  */
 
 /* _____________ Your Code Here _____________ */
-type All = any
+type All<T extends any[], U> =
+  T extends [infer First, ...infer Rest]
+    ? Equal<First, U> extends true
+      ? All<Rest, U>
+      : false
+    : true
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

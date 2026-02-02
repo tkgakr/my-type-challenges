@@ -4,7 +4,18 @@
  */
 
 /* _____________ Your Code Here _____________ */
-type Transpose<M extends number[][]> = any
+// Rは元行列の最初の行。keyof Rで列インデックスを取得し、転置後の行インデックスとして使用
+type Transpose<M extends number[][],R = M['length'] extends 0?[]:M[0]> = {
+  // 転置後の各行に対して
+  [X in keyof R]:{
+    // 元行列の各行に対して
+    [Y in keyof M]:
+      // 元行列のY行目のX列目の要素を、結果行列のX行目のY列目に配置する
+      X extends keyof M[Y]
+        ? M[Y][X]
+        : never
+  }
+}
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

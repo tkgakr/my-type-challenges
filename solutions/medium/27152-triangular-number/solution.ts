@@ -4,7 +4,13 @@
  */
 
 /* _____________ Your Code Here _____________ */
-type Triangular<N extends number> = any
+// インデックスカウンターとしての I と、三角数の解 Result をアキュムレータとして持つ
+type Triangular<N extends number, I extends any[] = [], Result extends any[] = []> =
+  I['length'] extends N
+    // Iが指定の数に到達したら、解を返す
+    ? Result['length']
+    // I をインクリメントする要素追加と、前の数までの和に次の数を加える
+    : Triangular<N, [...I, 1], [...Result, ...I, 1]>
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

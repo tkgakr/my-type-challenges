@@ -4,7 +4,15 @@
  */
 
 /* _____________ Your Code Here _____________ */
-type CartesianProduct<T, U> = any
+type CartesianProduct<T, U> =
+  // ユニオン型 T の各メンバーを分配
+  T extends T // 条件型を必ず満たせばいいので `any` でもOK
+    // ユニオン型 U の各メンバーを分配
+    ? U extends U // 条件型を必ず満たせばいいので `any` でもOK
+      // 分配されたメンバー同士でタプルを構成
+      ? [T, U]
+      : never
+    : never
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

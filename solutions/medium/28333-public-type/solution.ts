@@ -4,7 +4,10 @@
  */
 
 /* _____________ Your Code Here _____________ */
-type PublicType<T extends object> = any
+type PublicType<T extends object> = {
+  // プロパティーキー `K` に対して `_` で始まるものを除外する
+  [K in keyof T as K extends `_${string}` ? never : K]: T[K]
+}
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

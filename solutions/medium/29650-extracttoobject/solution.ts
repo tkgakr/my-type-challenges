@@ -4,7 +4,13 @@
  */
 
 /* _____________ Your Code Here _____________ */
-type ExtractToObject<T, U> = any
+// 交差型オブジェクトをマージして一つのオブジェクトにする
+// (単一のオブジェクトと交差型ではおなじプロパティでも Equalで不一致になるため)
+type Prettify<T extends object> =
+  Omit<T, never>
+type ExtractToObject<T, U extends keyof T> =
+  // プロパティ U を T から除外し、U の中身のオブジェクトを交差型で結合する
+  Prettify<Omit<T, U> & T[U]>
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect } from '@type-challenges/utils'

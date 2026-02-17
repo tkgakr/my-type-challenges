@@ -4,7 +4,13 @@
  */
 
 /* _____________ Your Code Here _____________ */
-type DefinedPartial<T> = any
+type DefinedPartial<T, K extends PropertyKey = keyof T> =
+  // Tのプロパティキーを分配
+  K extends K
+    // K を除いたオブジェクトで再帰し、Tとユニオンする
+    ? T | DefinedPartial<Omit<T, K>>
+    : never
+
 
 /* _____________ Test Cases _____________ */
 import type { Equal, Expect, ExpectTrue, NotAny, NotEqual } from '@type-challenges/utils'
